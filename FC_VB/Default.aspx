@@ -90,10 +90,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-4">
+                                <%--<div class="col-md-6 col-lg-4">
                                     <div class="form-group row">
-                                        <label for="ddlNegocio" class="col-sm-4">Negocio</label>
+                                        <label for="ddlNegocio" class="col-sm-4">Categor&iacute;a</label>
                                         <asp:DropDownList runat="server" ID="ddlNegocio" class="form-control col-sm-8" DataValueField="Id" DataTextField="Descripcion" Style="left: 0px; top: 0px; border-color: gold; background-color: cornsilk" ToolTip="Finanzas" />
+                                    </div>
+                                </div>--%>
+
+                               <div class="col-md-6 col-lg-4">
+                                    <div class="form-group row">
+                                        <label for="tbRut" class="col-sm-4">Categor&iacute;a</label>
+                                        <asp:TextBox ID="tbCategoria" runat="server" class="form-control col-sm-8" placeholder="..." ReadOnly="true"></asp:TextBox>
                                     </div>
                                 </div>
 
@@ -143,12 +150,20 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-4">
+                                <%--<div class="col-md-6 col-lg-4">
                                     <div class="form-group row">
                                         <label for="ddlSegmento" class="col-sm-4">Segmento</label>
                                         <asp:DropDownList runat="server" ID="ddlSegmento" class="form-control col-sm-8" DataValueField="Id" DataTextField="Descripcion" Style="left: 0px; top: 0px; border-color: gold; background-color: cornsilk" ToolTip="Finanzas" />
                                     </div>
+                                </div>--%>
+
+                               <div class="col-md-6 col-lg-4">
+                                    <div class="form-group row">
+                                        <label for="tbRut" class="col-sm-4">Segmento</label>
+                                        <asp:TextBox ID="tbSegmento" runat="server" class="form-control col-sm-8" placeholder="..." ReadOnly="true"></asp:TextBox>
+                                    </div>
                                 </div>
+
 
                                 <div class="form-group col-md-6 col-lg-4">
                                     <div class="form-group row">

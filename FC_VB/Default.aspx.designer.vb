@@ -41,13 +41,13 @@ Partial Public Class _Default
    Protected WithEvents tbRut As Global.System.Web.UI.WebControls.TextBox
 
    '''<summary>
-   '''Control ddlNegocio.
+   '''Control tbCategoria.
    '''</summary>
    '''<remarks>
    '''Campo generado automáticamente.
    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
    '''</remarks>
-   Protected WithEvents ddlNegocio As Global.System.Web.UI.WebControls.DropDownList
+   Protected WithEvents tbCategoria As Global.System.Web.UI.WebControls.TextBox
 
    '''<summary>
    '''Control ddlPlazoExtFirmado.
@@ -95,13 +95,13 @@ Partial Public Class _Default
    Protected WithEvents ddlCliente As Global.System.Web.UI.WebControls.DropDownList
 
    '''<summary>
-   '''Control ddlSegmento.
+   '''Control tbSegmento.
    '''</summary>
    '''<remarks>
    '''Campo generado automáticamente.
    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
    '''</remarks>
-   Protected WithEvents ddlSegmento As Global.System.Web.UI.WebControls.DropDownList
+   Protected WithEvents tbSegmento As Global.System.Web.UI.WebControls.TextBox
 
    '''<summary>
    '''Control tbGiro.

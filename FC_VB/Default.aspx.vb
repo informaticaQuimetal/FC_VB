@@ -131,9 +131,9 @@ Public Class _Default
    End Sub
 
    Public Sub Llenartablasmaestras()
-      ddlNegocio.DataSource = GetTablaMaestra("Ficha_M_Negocio")
+      'ddlNegocio.DataSource = GetTablaMaestra("Ficha_M_Negocio")
       ddlAntiguedad.DataSource = GetTablaMaestra("Ficha_M_Antiguedad")
-      ddlSegmento.DataSource = GetTablaMaestra("Ficha_M_Segmento")
+      'ddlSegmento.DataSource = GetTablaMaestra("Ficha_M_Segmento")
       ddlCliente.DataSource = GetCliente()
       ddlEstadoCivilA.DataSource = GetEstadoCivil()
       ddlEstadoCivilB.DataSource = GetEstadoCivil()
@@ -141,9 +141,9 @@ Public Class _Default
       ddlNacionalidadB.DataSource = GetNacionalidad()
       ddlCantidad.DataSource = GetCantidad()
       ddlClasifRiesgo.DataSource = GetClasificacionRiesgo()
-      ddlNegocio.DataBind()
+      'ddlNegocio.DataBind()
       ddlAntiguedad.DataBind()
-      ddlSegmento.DataBind()
+      'ddlSegmento.DataBind()
       ddlCliente.DataBind()
       ddlEstadoCivilA.DataBind()
       ddlEstadoCivilB.DataBind()
@@ -1785,13 +1785,15 @@ Public Class _Default
    Private Function Get_SN_SAP(ByVal sCardCode As String) As Boolean
       Dim conn As New SqlConnection
       Dim drNP As SqlDataReader
-      Dim sSql As String = "select T0.CardCode, T0.CardName, T0.LicTradNum Rut, T0.Notes Giro, T1.Street as Direccion, T1.City Ciudad, T1.County as Comuna , T2.Name as Estado, T3.name as País, T4.SlpName as Vendedor, T5.PymntGroup as CondPago, SBO_31.dbo.GetFC_MonFxC (T0.CardCode, '31/12/2008', Convert(varchar(10), GetDate(), 103)) As [Monedas] " _
-                         & "From OCRD T0 " _
-                         & "Inner Join      CRD1 T1 On T0.CardCode = T1.CardCode And T0.BillToDef = T1.Address " _
-                         & "Left outer join OCST T2 On T1.State    = T2.Code     And T2.Country   = T1.Country " _
-                         & "inner Join      OCRY T3 On T1.Country  = T3.Code " _
-                         & "inner Join      OSLP T4 On T0.SlpCode  = T4.SlpCode " _
-                         & "inner Join      OCTG T5 On T0.GroupNum = T5.GroupNum " _
+      Dim sSql As String = "select T0.CardCode, T0.CardName, T0.LicTradNum Rut, T0.Notes Giro, T1.Street as Direccion, T1.City Ciudad, T1.County as Comuna , T2.Name as Estado, T3.name as País, T4.SlpName as Vendedor, T5.PymntGroup as CondPago, SBO_31.dbo.GetFC_MonFxC (T0.CardCode, '31/12/2008', Convert(varchar(10), GetDate(), 103)) As [Monedas], " _
+                                   & "(select Descr from ufd1 where tableid ='OCRD' and fieldid = 34 and FldValue = u_segmento)  Segmento," _
+                                   & "(Select Descr from ufd1 where tableid ='OCRD' and fieldid = 35 and FldValue = U_Categoria) Categoria " _
+                         & "from OCRD T0 " _
+                         & "inner join      CRD1 T1 On T0.CardCode = T1.CardCode And T0.BillToDef = T1.Address " _
+                         & "left outer join OCST T2 On T1.State    = T2.Code     And T2.Country   = T1.Country " _
+                         & "inner join      OCRY T3 On T1.Country  = T3.Code " _
+                         & "inner join      OSLP T4 On T0.SlpCode  = T4.SlpCode " _
+                         & "inner join      OCTG T5 On T0.GroupNum = T5.GroupNum " _
                          & "where T0.CardCode Like '%[CX]' and T1.AdresType = 'B'  and T0.CardCode = '" + sCardCode + "'"
       Dim bOK As Boolean = vbFalse
       Try
@@ -1817,6 +1819,8 @@ Public Class _Default
                tbVendedor.Text = drNP("Vendedor").ToString
                tbCondVta.Text = drNP("CondPago").ToString
                tbMonDeuda.Text = drNP("Monedas").ToString
+               tbSegmento.text = drNP("Segmento").ToString
+               tbCategoria.Text = drNP("Categoria").ToString
                Me.DataBind()
             End If
          End While
@@ -1885,8 +1889,8 @@ Public Class _Default
             If drNP.HasRows Then
                bOK = vbTrue
                tbRut.Text = drNP("Rut").ToString
-               ddlNegocio.SelectedValue = drNP("Negocio").ToString
-               ddlSegmento.SelectedValue = drNP("Segmento").ToString
+               'ddlNegocio.SelectedValue = drNP("Negocio").ToString
+               'ddlSegmento.SelectedValue = drNP("Segmento").ToString
                tbGrupoEmpresas.Text = drNP("GrupoEmpresas").ToString
                ddlAntiguedad.SelectedValue = drNP("Antiguedad").ToString
                tbAñosCliente.Text = drNP("AñosCliente").ToString
@@ -2161,12 +2165,15 @@ Public Class _Default
       Else
 
 
+         '& "Negocio = " & ddlNegocio.SelectedValue & ", "
+         '& "Segmento = " & ddlSegmento.SelectedValue & ", " _
+         '& "', " & ddlNegocio.SelectedValue
+         '& ", " & ddlSegmento.SelectedValue _
+
          'Ficha Cliente
          If ExisteFicha("Ficha_Cliente", tbCardCode.Text) Then
             sSql = "update [General_31].[dbo].[Ficha_Cliente] set " _
                      & "Rut = '" & tbRut.Text & "', " _
-                     & "Negocio = " & ddlNegocio.SelectedValue & ", " _
-                     & "Segmento = " & ddlSegmento.SelectedValue & ", " _
                      & "GrupoEmpresas = " & IIf(tbGrupoEmpresas.Text = "", "Null", fCaracteres(tbGrupoEmpresas.Text)) & ", " _
                      & "Antiguedad = " & ddlAntiguedad.SelectedValue & ", " _
                      & "AñosCliente = " & IIf(tbAñosCliente.Text = "", 0, tbAñosCliente.Text) & ", " _
@@ -2179,12 +2186,11 @@ Public Class _Default
              & "where  (CardCode  = '" & tbCardCode.Text & "')"
             ActualizaFicha(sSql)
          Else
+            '[Negocio], [Segmento], 
             sSql = "insert into [General_31].[dbo].[Ficha_Cliente] " _
-                  & "([Rut], [CardCode], [Negocio], [Segmento], [GrupoEmpresas], [Antiguedad], [AñosCliente], [PlazoExtFirmado], [Protesto], [Cheque_Fecha], [Otros], [UserA], [UserADate], [UserU], [UserUDate]) " _
+                  & "([Rut], [CardCode], [GrupoEmpresas], [Antiguedad], [AñosCliente], [PlazoExtFirmado], [Protesto], [Cheque_Fecha], [Otros], [UserA], [UserADate], [UserU], [UserUDate]) " _
                   & "Values ('" & tbRut.Text _
                   & "', '" & tbCardCode.Text _
-                  & "', " & ddlNegocio.SelectedValue _
-                  & ", " & ddlSegmento.SelectedValue _
                   & ", " & IIf(tbGrupoEmpresas.Text = "", "Null", fCaracteres(tbGrupoEmpresas.Text)) _
                   & ", " & ddlAntiguedad.SelectedValue _
                   & ", " & IIf(tbAñosCliente.Text = "", 0, tbAñosCliente.Text) _
@@ -2795,11 +2801,11 @@ Public Class _Default
 
       'Seccion 1
       tbRut.Text = ""
-      ddlNegocio.SelectedValue = 1
+      'ddlNegocio.SelectedValue = 1
       ddlPlazoExtFirmado.SelectedValue = "No"
       tbVendedor.Text = ""
       tbSubido.Text = ""
-      ddlSegmento.SelectedValue = 1
+      'ddlSegmento.SelectedValue = 1
       tbGiro.Text = ""
       tbGrupoEmpresas.Text = ""
       ddlProtesto.SelectedValue = "No"
@@ -2882,6 +2888,3 @@ Public Class _Default
 
 
 End Class
-
-
-
