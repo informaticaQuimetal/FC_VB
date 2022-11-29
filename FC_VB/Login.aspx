@@ -17,7 +17,7 @@
         <div class="login-main-text">
             <h1>Ficha Comercial de Clientes </h1>
             <h1>Quimetal Industrial S.A.</h1>
-            <h5>(Versión 3.1)</h5>
+            <h5>(Versión 3.2)</h5>
         </div>
     </div>
     <div class="main">
