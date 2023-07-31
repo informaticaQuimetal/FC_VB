@@ -185,9 +185,11 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group row">
                                         <label for="tbGrupoEmpresas" class="col-sm-4">Grupo Empresas</label>
-                                        <asp:TextBox ID="tbGrupoEmpresas" runat="server" class="form-control col-sm-8" placeholder="..." Style="left: 0px; top: 0px; border-color: chartreuse; background-color: azure" ToolTip="Comercial"></asp:TextBox>
+                                        <%--<asp:TextBox ID="tbGrupoEmpresas" runat="server" class="form-control col-sm-8" placeholder="..." Style="left: 0px; top: 0px; border-color: chartreuse; background-color: azure" ToolTip="Comercial"></asp:TextBox>--%>
+                                        <asp:TextBox ID="tbGrupoEmpresas" runat="server" class="form-control col-sm-9" placeholder="..." ReadOnly="true"></asp:TextBox>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-group row">
